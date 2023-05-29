@@ -16,23 +16,24 @@ public:
    //Default constructor
    Matrix() {empty(); cout << "No arg constructor!" << "// ObjCount=" << ++objcount << "\n"; } 
    //Converting constructor (should be explicit)
-   Matrix(int value);
+   Matrix(const int value);
    //Copy constructor
    Matrix(const Matrix& m);
-
+   //Destructor
+   ~Matrix() { cout << "Destroying" << "// ObjCount=" << --objcount << endl; }
+   //User methods
    void empty();
    void print(void) const;
    void setElement(int row, int col, int value = 0);
-   int getElement(int row, int col);
-   Matrix addMatrix(Matrix othermatrix);
-   bool equal(Matrix m2);
-   ~Matrix() { cout << "Destroying" << "// ObjCount=" << --objcount << endl; }
+   const int getElement(int row, int col) const;
+   Matrix addMatrix(const Matrix othermatrix) const;
+   bool equal(const Matrix m2) const;
    static int objcount;
 private:
    int mtx[MAX_ROWS][MAX_COLS];
 };
 
-Matrix::Matrix(int value)
+Matrix::Matrix(const int value)
 {
    cout << "Creating " << value << "// ObjCount=" << ++objcount << "\n";
    for (int i = 0; i < MAX_ROWS; i++)
@@ -76,7 +77,7 @@ void Matrix::setElement(int row, int col, int value)
    mtx[row][col] = value;
 }
 
-int Matrix::getElement(int row, int col)
+const int Matrix::getElement(int row, int col) const
 {
    assert(row < MAX_ROWS);
    assert(col < MAX_COLS);
@@ -84,7 +85,7 @@ int Matrix::getElement(int row, int col)
    return mtx[row][col];
 }
 
-Matrix Matrix::addMatrix(Matrix othermatrix)
+Matrix Matrix::addMatrix(const Matrix othermatrix) const
 {
    Matrix newM;
 
@@ -96,7 +97,7 @@ Matrix Matrix::addMatrix(Matrix othermatrix)
 }
 
 // Compares my matrix values el-by-el
-bool Matrix::equal(Matrix m2)
+bool Matrix::equal(const Matrix m2) const
 {
    for (int i = 0; i < MAX_ROWS; i++) {
       for (int j = 0; j < MAX_COLS; j++) {
