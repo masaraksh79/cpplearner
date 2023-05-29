@@ -29,6 +29,7 @@ public:
    Matrix addMatrix(const Matrix othermatrix) const;
    bool equal(const Matrix m2) const;
    static int objcount;
+   Matrix operator+(const Matrix& rhs);
 private:
    int mtx[MAX_ROWS][MAX_COLS];
    mutable int printed;
@@ -90,17 +91,6 @@ const int Matrix::getElement(int row, int col) const
    return mtx[row][col];
 }
 
-Matrix Matrix::addMatrix(const Matrix othermatrix) const
-{
-   Matrix newM;
-
-   for (int i = 0; i < MAX_ROWS; i++)
-      for (int j = 0; j < MAX_COLS; j++)
-         newM.setElement(i, j, mtx[i][j] + othermatrix.getElement(i,j));
-
-   return newM;
-}
-
 // Compares my matrix values el-by-el
 bool Matrix::equal(const Matrix m2) const
 {
@@ -111,6 +101,18 @@ bool Matrix::equal(const Matrix m2) const
    }
 
    return true;
+}
+
+Matrix Matrix::operator+(const Matrix& rhs)
+{
+   Matrix lhs;
+
+   for (int i = 0; i < MAX_ROWS; i++) {
+      for (int j = 0; j < MAX_COLS; j++) {
+         lhs.setElement(i, j, mtx[i][j] + rhs.getElement(i,j) );
+      }
+   }
+   return lhs;
 }
 
 int Matrix::objcount = 0;
@@ -136,7 +138,7 @@ int main()
 	m2.setElement(0, 2, 70);
 	m2.setElement(1, 0, 10);
 	m2.setElement(1, 1, 60);
-   m2.setElement(1, 2);
+   m2.setElement(1, 2, 90);
 
 	std::cout << "\nMatrix m1 is ";
 	m1.print();
@@ -144,7 +146,7 @@ int main()
 	std::cout << "\nMatrix m2 is ";
 	m2.print();
 
-   m3 = m1.addMatrix(m2);
+   m3 = m1 + m2;
 	std::cout << "\nMatrix m1 is now m1+m2 is ";
 	m3.print();
 
