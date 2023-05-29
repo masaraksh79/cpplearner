@@ -33,6 +33,7 @@ public:
    Matrix& operator+=(const Matrix& rhs);
    int& operator[](int cell);
    int operator[](int cell) const;
+   int operator()(const int row, const int col);
    //The ugly
    static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);

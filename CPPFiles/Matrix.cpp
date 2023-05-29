@@ -158,3 +158,10 @@ int Matrix::operator[](int cell) const
 
    return *p;
 }
+
+int Matrix::operator()(const int row, const int col)
+{
+   assert(row < MAX_ROWS);
+   assert(col < MAX_COLS);
+   return this->mtx[row][col];
+}

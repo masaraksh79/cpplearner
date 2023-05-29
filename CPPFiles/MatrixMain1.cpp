@@ -68,5 +68,7 @@ int main()
    const Matrix zrs{0};
    cout << "Zeros value index = " << zrs[0] << '\n';
 
+   cout << "Matrix M1 index (1,2) = " << m1(1,2) << '\n';
+
 	return 0;
 }
