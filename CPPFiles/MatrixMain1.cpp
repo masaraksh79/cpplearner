@@ -27,9 +27,12 @@ public:
    void setElement(int row, int col, int value = 0);
    const int getElement(int row, int col) const;
    Matrix addMatrix(const Matrix othermatrix) const;
-   bool equal(const Matrix m2) const;
    static int objcount;
    Matrix operator+(const Matrix& rhs);
+   Matrix operator-(const Matrix& rhs);
+   bool operator==(const Matrix& rhs);
+   friend ostream& operator<<(ostream& os, const Matrix& m);
+
 private:
    int mtx[MAX_ROWS][MAX_COLS];
    mutable int printed;
@@ -91,18 +94,6 @@ const int Matrix::getElement(int row, int col) const
    return mtx[row][col];
 }
 
-// Compares my matrix values el-by-el
-bool Matrix::equal(const Matrix m2) const
-{
-   for (int i = 0; i < MAX_ROWS; i++) {
-      for (int j = 0; j < MAX_COLS; j++) {
-         if (mtx[i][j] != m2.getElement(i,j)) return false;
-      }
-   }
-
-   return true;
-}
-
 Matrix Matrix::operator+(const Matrix& rhs)
 {
    Matrix lhs;
@@ -113,6 +104,49 @@ Matrix Matrix::operator+(const Matrix& rhs)
       }
    }
    return lhs;
+}
+
+Matrix Matrix::operator-(const Matrix& rhs)
+{
+   Matrix lhs;
+
+   for (int i = 0; i < MAX_ROWS; i++) {
+      for (int j = 0; j < MAX_COLS; j++) {
+         lhs.setElement(i, j, mtx[i][j] - rhs.getElement(i,j) );
+      }
+   }
+   return lhs;
+}
+
+
+bool Matrix::operator==(const Matrix& rhs)
+{
+   for (int i = 0; i < MAX_ROWS; i++) {
+      for (int j = 0; j < MAX_COLS; j++) {
+         if (mtx[i][j] != rhs.getElement(i,j))
+         {
+            return false;
+         }
+      }
+   }
+   return true;
+}
+
+ostream& operator<<(ostream& os, const Matrix& m)
+{
+   os << endl;
+   
+   for (int i = 0; i < MAX_ROWS; i++)
+   {
+      for (int j = 0; j < MAX_COLS; j++)
+         os << m.getElement(i,j) << " ";
+   
+      os << endl; //not just prints eol but flushes
+   }
+
+   os << "Printed #" << ++m.printed << " times\n";
+    
+   return os;
 }
 
 int Matrix::objcount = 0;
@@ -150,7 +184,7 @@ int main()
 	std::cout << "\nMatrix m1 is now m1+m2 is ";
 	m3.print();
 
-   if (m1.equal(m2))
+   if (m1 == m2)
       std::cout << "\nMatrices are the same!";
    else
       std::cout << "\nMatrices are different!";
@@ -165,6 +199,12 @@ int main()
    zeros.print();
    zeros.print();
    zeros.print();
+
+   cout << m7;
+
+   Matrix m8 = m1 - m2;
+   std::cout << "\nMatrix printed is subtraction of m1-m2\n";
+   m8.print();
 
 	return 0;
 }
