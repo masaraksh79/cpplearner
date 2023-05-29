@@ -14,7 +14,7 @@ class Matrix
 {
 public:
    //Default constructor
-   Matrix() {empty(); cout << "No arg constructor!" << "// ObjCount=" << ++objcount << "\n"; } 
+   Matrix() {printed = 0;empty(); cout << "No arg constructor!" << "// ObjCount=" << ++objcount << "\n"; } 
    //Converting constructor (should be explicit)
    Matrix(const int value);
    //Copy constructor
@@ -31,11 +31,13 @@ public:
    static int objcount;
 private:
    int mtx[MAX_ROWS][MAX_COLS];
+   mutable int printed;
 };
 
 Matrix::Matrix(const int value)
 {
    cout << "Creating " << value << "// ObjCount=" << ++objcount << "\n";
+   printed = 0;
    for (int i = 0; i < MAX_ROWS; i++)
       for (int j = 0; j < MAX_COLS; j++)
          mtx[i][j] = value;
@@ -44,6 +46,7 @@ Matrix::Matrix(const int value)
 Matrix::Matrix(const Matrix& m)
 {
    cout << "Creating by a copy constructor" << "// ObjCount=" << ++objcount << endl;
+   printed = 0;
    for (int i = 0; i < MAX_ROWS; i++)
       for (int j = 0; j < MAX_COLS; j++)
          mtx[i][j] = m.mtx[i][j];
@@ -67,6 +70,8 @@ void Matrix::print(void) const
    
       cout << endl; //not just prints eol but flushes
    }
+
+   cout << "Printed #" << ++printed << " times\n";
 }
 
 void Matrix::setElement(int row, int col, int value)
@@ -155,6 +160,8 @@ int main()
 
    const Matrix zeros(0);
    std::cout << "\nMatrix zeros is printed through marked print method\n";
+   zeros.print();
+   zeros.print();
    zeros.print();
 
 	return 0;
