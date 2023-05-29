@@ -135,3 +135,10 @@ Matrix& Matrix::operator+=(const Matrix& rhs)
 
     return *this;
 }
+
+int& Matrix::operator[](int row)
+{
+   assert(row < MAX_ROWS);
+
+   return mtx[row][0];
+}

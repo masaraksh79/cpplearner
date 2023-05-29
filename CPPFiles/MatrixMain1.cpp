@@ -58,9 +58,11 @@ int main()
    std::cout << "\nMatrix printed is subtraction of m1-m2\n";
    m8.print();
 
-   // m8 += m8;
-   // std::cout << "\nMatrix printed is operator += to do of m8+=m8\n";
-   // m8.print();
+   m8 += m8;
+   std::cout << "\nMatrix printed is operator += to do of m8+=m8\n";
+   m8.print();
+
+   cout << "Cell 1=" << m8[0] << " cell2=" << m8[1] << "\n";
 
 	return 0;
 }

@@ -31,6 +31,7 @@ public:
    bool operator==(const Matrix& rhs);
    bool operator!=(const Matrix& rhs);
    Matrix& operator+=(const Matrix& rhs);
+   int& operator[](int row);  // return col1 value per given row
    friend ostream& operator<<(ostream& os, const Matrix& m);
 
 private:
