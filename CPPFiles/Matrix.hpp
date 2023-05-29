@@ -26,7 +26,6 @@ public:
    void setElement(int row, int col, int value = 0);
    const int getElement(int row, int col) const;
    Matrix addMatrix(const Matrix othermatrix) const;
-   static int objcount;
    Matrix operator+(const Matrix& rhs);
    Matrix operator-(const Matrix& rhs);
    bool operator==(const Matrix& rhs) const;
@@ -34,8 +33,9 @@ public:
    Matrix& operator+=(const Matrix& rhs);
    int& operator[](int cell);
    int operator[](int cell) const;
+   //The ugly
+   static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);
-
 private:
    int mtx[MAX_ROWS][MAX_COLS];
    mutable int printed;
