@@ -23,13 +23,15 @@ public:
 
     int getDigit() const { return digit; }
 
+    operator int() { return digit; }
+
 private:
     int digit;
 };
 
 std::ostream& operator<<(std::ostream& out, Digit d)
 {
-    out << d.getDigit();
+    out << int(d);
     return out;
 }
 
@@ -98,6 +100,7 @@ int main()
     Digit d2 = 9;
     if (d2 == 8) std::cout << "Digit is different from 8!";
     if (d2 != 9) std::cout << "Digit is the same as 9!";
+    std::cout << "\n Int digit: " << int(d2) << std::endl;
 
     return 0;
 }
