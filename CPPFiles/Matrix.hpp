@@ -7,6 +7,7 @@ using namespace std;
 
 #define MAX_ROWS (2)
 #define MAX_COLS (3)
+#define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
 class Matrix
 {
@@ -28,10 +29,11 @@ public:
    static int objcount;
    Matrix operator+(const Matrix& rhs);
    Matrix operator-(const Matrix& rhs);
-   bool operator==(const Matrix& rhs);
-   bool operator!=(const Matrix& rhs);
+   bool operator==(const Matrix& rhs) const;
+   bool operator!=(const Matrix& rhs) const;
    Matrix& operator+=(const Matrix& rhs);
-   int& operator[](int row);  // return col1 value per given row
+   int& operator[](int cell);
+   int operator[](int cell) const;
    friend ostream& operator<<(ostream& os, const Matrix& m);
 
 private:

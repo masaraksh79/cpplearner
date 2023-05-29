@@ -92,7 +92,7 @@ Matrix Matrix::operator-(const Matrix& rhs)
 }
 
 
-bool Matrix::operator==(const Matrix& rhs)
+bool Matrix::operator==(const Matrix& rhs) const
 {
    for (int i = 0; i < MAX_ROWS; i++) {
       for (int j = 0; j < MAX_COLS; j++) {
@@ -105,7 +105,7 @@ bool Matrix::operator==(const Matrix& rhs)
    return true;
 }
 
-bool Matrix::operator!=(const Matrix& rhs)
+bool Matrix::operator!=(const Matrix& rhs) const
 {
    return !this->operator==(rhs);
 }
@@ -136,9 +136,25 @@ Matrix& Matrix::operator+=(const Matrix& rhs)
     return *this;
 }
 
-int& Matrix::operator[](int row)
+int& Matrix::operator[](int cell)
 {
-   assert(row < MAX_ROWS);
+   assert(cell < MAX_CELLS);
 
-   return mtx[row][0];
+   int curr_row = cell / (MAX_ROWS + 1);
+   int curr_off = cell % (MAX_ROWS + 1);
+   int* pr = &mtx[curr_row][0];
+
+   return *(pr + curr_off);
+}
+
+int Matrix::operator[](int cell) const
+{
+   assert(cell < MAX_CELLS);
+
+   const int curr_row = cell / (MAX_ROWS + 1);
+   const int curr_off = cell % (MAX_ROWS + 1);
+   const int* pr = &mtx[curr_row][0];
+   const int* p = pr + curr_off;
+
+   return *p;
 }
