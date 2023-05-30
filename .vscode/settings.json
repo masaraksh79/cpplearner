@@ -2,7 +2,8 @@
    "files.associations": {
       "*.overlay": "plaintext",
       "*.bats": "shellscript",
-      "iosfwd": "cpp"
+      "iosfwd": "cpp",
+      "ostream": "cpp"
    },
    "C_Cpp.errorSquiggles": "disabled"
 }
