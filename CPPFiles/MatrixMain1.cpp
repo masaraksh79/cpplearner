@@ -12,8 +12,8 @@ int main()
 	m1.empty();
 	m2.empty();
 
-	m1.setElement(0, 0, 10);
-	m1.setElement(0, 1, 20);
+   m1(0, 0) = 10;
+   m1(0, 1) = 20;
 	m1.setElement(0, 2, 30);
 	m1.setElement(1, 0, 40);
 	m1.setElement(1, 1, 50);
@@ -69,6 +69,14 @@ int main()
    cout << "Zeros value index = " << zrs[0] << '\n';
 
    cout << "Matrix M1 index (1,2) = " << m1(1,2) << '\n';
+   cout << "Matrix ZEROS index (1,2) = " << zeros(1,2) << '\n';
+
+   cout << "Matrix m8 before assignment from m1\n";
+   m8.print();
+   m8 = m1;
+   cout << "Matrix m8 after assignment from m1\n";
+   m8.print();
+
 
 	return 0;
 }

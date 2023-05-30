@@ -159,9 +159,30 @@ int Matrix::operator[](int cell) const
    return *p;
 }
 
-int Matrix::operator()(const int row, const int col)
+// using this operator can be done as
+// cout << m(1,0)
+// m(1,0) = 8 with this case because operator used on left it becomes the l-value
+int& Matrix::operator()(int row, int col)
 {
    assert(row < MAX_ROWS);
    assert(col < MAX_COLS);
    return this->mtx[row][col];
+}
+
+int Matrix::operator()(int row, int col) const
+{
+   assert(row < MAX_ROWS);
+   assert(col < MAX_COLS);
+   return this->mtx[row][col];
+}
+
+Matrix& Matrix::operator=(const Matrix& rhs)
+{
+   for (int i = 0; i < MAX_ROWS; i++) {
+      for (int j = 0; j < MAX_COLS; j++) {
+         this->mtx[i][j] = rhs.getElement(i,j);
+      }
+   }
+
+   return *this;
 }
