@@ -10,15 +10,14 @@ using namespace std;
 #define MAX_COLS (3)
 #define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
-struct MatrixParent
+class Object
 {
-   void trace() { cout << "Here" << endl; }
-   string classname{"MatrixParent"};
-   string nameOf() { return classname; }
-
+public:
+   virtual void trace() { cout << "Here is " << nameOf() << endl; }
+   virtual string nameOf() { return "Object"; }
 };
 
-class Matrix : public MatrixParent
+class Matrix : public Object
 {
 public:
    //Default constructor
@@ -49,7 +48,7 @@ public:
    static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);
    //Overriding methods of MatrixParent
-   void trace() { cout << "Here is Matrix class" << endl; }
+   void trace() { cout << "Here is " << nameOf() << endl; }
    std::string nameOf() { return "Matrix"; }
 private:
    std::array<std::array <int,MAX_COLS>,MAX_ROWS> mtx;

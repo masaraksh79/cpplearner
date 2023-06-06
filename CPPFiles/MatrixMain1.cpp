@@ -83,10 +83,13 @@ int main()
    outfile << m1;
    outfile.close();
 
-   MatrixParent mp1;
+   Object o1;
 
    cout << "Name of derived class : " << m8.nameOf() << endl;
-   cout << "Name of base class : " << mp1.nameOf() << endl;
+   cout << "Name of base class : " << o1.nameOf() << endl;
+
+   o1.trace();
+   m8.trace();
 
 	return 0;
 }
