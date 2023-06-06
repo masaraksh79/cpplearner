@@ -14,7 +14,7 @@ class Object
 {
 public:
    virtual void trace() { cout << "Here is " << nameOf() << endl; }
-   virtual string nameOf() { return "Object"; }
+   virtual string nameOf() = 0;
 };
 
 class Matrix : public Object
@@ -48,8 +48,8 @@ public:
    static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);
    //Overriding methods of MatrixParent
-   void trace() { cout << "Here is " << nameOf() << endl; }
    std::string nameOf() { return "Matrix"; }
+   void trace() { cout << "Here is " << nameOf() << endl; }
 private:
    std::array<std::array <int,MAX_COLS>,MAX_ROWS> mtx;
    mutable int printed;

@@ -9,7 +9,7 @@ Matrix::Matrix()
    cout << "No arg constructor!" << "// ObjCount=" << ++Matrix::objcount << "\n"; 
 } 
 
-Matrix::~Matrix() { cout << "Destroying" << "// ObjCount=" << --Matrix::objcount << endl; }
+Matrix::~Matrix() { /* cout << "Destroying" << "// ObjCount=" << --Matrix::objcount << endl; */ }
 
 Matrix::Matrix(const int value)
 {
