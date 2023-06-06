@@ -3,11 +3,13 @@
  *		Program to be completed by students.
  */
 #include <cassert>
+#include <fstream>
 #include "Matrix.hpp"
 
 int main()
 {
 	Matrix m1, m2, m3;
+   ofstream outfile;
 
 	m1.empty();
 	m2.empty();
@@ -77,6 +79,14 @@ int main()
    cout << "Matrix m8 after assignment from m1\n";
    m8.print();
 
+   outfile.open("test.txt");
+   outfile << m1;
+   outfile.close();
+
+   MatrixParent mp1;
+
+   cout << "Name of derived class : " << m8.nameOf() << endl;
+   cout << "Name of base class : " << mp1.nameOf() << endl;
 
 	return 0;
 }

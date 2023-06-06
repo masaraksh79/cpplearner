@@ -2,6 +2,7 @@
 #define _MATRIX_HPP
 
 #include <iostream>
+#include <array>
 
 using namespace std;
 
@@ -9,7 +10,15 @@ using namespace std;
 #define MAX_COLS (3)
 #define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
-class Matrix
+struct MatrixParent
+{
+   void trace() { cout << "Here" << endl; }
+   string classname{"MatrixParent"};
+   string nameOf() { return classname; }
+
+};
+
+class Matrix : public MatrixParent
 {
 public:
    //Default constructor
@@ -39,8 +48,11 @@ public:
    //The ugly
    static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);
+   //Overriding methods of MatrixParent
+   void trace() { cout << "Here is Matrix class" << endl; }
+   std::string nameOf() { return "Matrix"; }
 private:
-   int mtx[MAX_ROWS][MAX_COLS];
+   std::array<std::array <int,MAX_COLS>,MAX_ROWS> mtx;
    mutable int printed;
 };
 

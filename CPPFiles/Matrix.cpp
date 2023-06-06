@@ -17,23 +17,21 @@ Matrix::Matrix(const int value)
    printed = 0;
    for (int i = 0; i < MAX_ROWS; i++)
       for (int j = 0; j < MAX_COLS; j++)
-         mtx[i][j] = value;
+         mtx.at(i).at(j) = value;
 }
 
 Matrix::Matrix(const Matrix& m)
 {
    cout << "Creating by a copy constructor" << "// ObjCount=" << ++objcount << endl;
    printed = 0;
-   for (int i = 0; i < MAX_ROWS; i++)
-      for (int j = 0; j < MAX_COLS; j++)
-         mtx[i][j] = m.mtx[i][j];
+   mtx = m.mtx; 
 }
 
 void Matrix::empty()
 {
    for (int i = 0; i < MAX_ROWS; i++)
       for (int j = 0; j < MAX_COLS; j++)
-         mtx[i][j] = 0;
+         mtx.at(i).at(j) = 0;
 }
 
 void Matrix::print(void) const
@@ -43,7 +41,7 @@ void Matrix::print(void) const
    for (int i = 0; i < MAX_ROWS; i++)
    {
       for (int j = 0; j < MAX_COLS; j++)
-         cout << mtx[i][j] << " ";
+         cout << mtx.at(i).at(j) << " ";
    
       cout << endl; //not just prints eol but flushes
    }
@@ -53,18 +51,12 @@ void Matrix::print(void) const
 
 void Matrix::setElement(int row, int col, int value)
 {
-   assert(row < MAX_ROWS);
-   assert(col < MAX_COLS);
-
-   mtx[row][col] = value;
+   mtx.at(row).at(col) = value;
 }
 
 const int Matrix::getElement(int row, int col) const
 {
-   assert(row < MAX_ROWS);
-   assert(col < MAX_COLS);
-
-   return mtx[row][col];
+   return mtx.at(row).at(col);
 }
 
 Matrix Matrix::operator+(const Matrix& rhs)
@@ -186,3 +178,4 @@ Matrix& Matrix::operator=(const Matrix& rhs)
 
    return *this;
 }
+
