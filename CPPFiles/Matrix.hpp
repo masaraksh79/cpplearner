@@ -7,6 +7,8 @@
 
 using namespace std;
 
+namespace utils {
+
 template <class T, int R, int C>
 class Matrix;
 
@@ -273,5 +275,7 @@ Matrix<T,R,C>& Matrix<T,R,C>::operator=(const Matrix<T,R,C>& rhs) noexcept
 
    return *this;
 }
+
+} // end namespace utils
 
 #endif

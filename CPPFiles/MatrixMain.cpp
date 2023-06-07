@@ -10,6 +10,8 @@
 #define MAX_COLS 3
 #define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
+using namespace utils;
+
 int main()
 {
 	Matrix<int,MAX_ROWS,MAX_COLS> m1;
