@@ -8,7 +8,10 @@
 
 int main()
 {
-	Matrix m1, m2, m3;
+	Matrix<int> m1;
+   Matrix<int> m2; 
+   Matrix<int> m3;
+
    ofstream outfile;
 
 	m1.empty();
@@ -31,7 +34,7 @@ int main()
       m2.setElement(1, 1, 60);
       m2.setElement(1, 2, 90);
    }
-   catch(int v)   // should print 7
+   catch(int v)   // should print 7 (worked in one of past commits)
    {
       std::cerr << "Error=" << v <<  '\n';
    }
@@ -52,12 +55,12 @@ int main()
    else
       std::cout << "\nMatrices are the same!";
 
-   Matrix m6;
-   Matrix m7(55);
+   Matrix<float> m6;
+   Matrix<double> m7(55.1);
 	std::cout << "\nMatrix m7 is initialized with same value in all cells\n";
    m7.print();
 
-   const Matrix zeros(0);
+   const Matrix<int> zeros(0);
    std::cout << "\nMatrix zeros is printed through marked print method\n";
    zeros.print();
    zeros.print();
@@ -65,7 +68,7 @@ int main()
 
    cout << m7;
 
-   Matrix m8 = m1 - m2;
+   Matrix<int> m8 = m1 - m2;
    std::cout << "\nMatrix printed is subtraction of m1-m2\n";
    m8.print();
 
@@ -76,7 +79,7 @@ int main()
    for (int i = 0; i < MAX_CELLS; ++i)
       cout << "Cell[" << i << "]=" << m8[i] << "\n";
 
-   const Matrix zrs{0};
+   const Matrix<float> zrs{0};
    cout << "Zeros value index = " << zrs[0] << '\n';
 
    cout << "Matrix M1 index (1,2) = " << m1(1,2) << '\n';
