@@ -4,6 +4,12 @@
  */
 #include <iostream>
 
+template <typename T>
+T square(T num)
+{
+   return num * num;
+}
+
 int main()
 {
     // This will call square(int)

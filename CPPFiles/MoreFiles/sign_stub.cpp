@@ -4,6 +4,12 @@
  */
 #include <iostream>
 
+template <typename T>
+T sign(T val)
+{
+   return val >= 0 ? 1 : -1;
+}
+
 int main()
 {
 	std::cout << "The sign of -5 is " << sign(-5) << '\n';
