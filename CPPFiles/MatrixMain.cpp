@@ -6,11 +6,22 @@
 #include <fstream>
 #include "Matrix.hpp"
 
+#define MAX_ROWS 2
+#define MAX_COLS 3
+#define MAX_CELLS (MAX_ROWS*MAX_COLS)
+
 int main()
 {
-	Matrix<int> m1;
-   Matrix<int> m2; 
-   Matrix<int> m3;
+	Matrix<int,MAX_ROWS,MAX_COLS> m1;
+   Matrix<int,MAX_ROWS,MAX_COLS> m2; 
+   Matrix<int,MAX_ROWS,MAX_COLS> m3;
+
+   Matrix<int,MAX_ROWS,MAX_COLS> m6;
+   Matrix<int,MAX_ROWS,MAX_COLS> m7(55);
+   Matrix<int,MAX_ROWS,MAX_COLS> m8;
+
+   const Matrix<int,MAX_ROWS,MAX_COLS> zeros(0);
+   const Matrix<int,MAX_ROWS,MAX_COLS> zrs{0};
 
    ofstream outfile;
 
@@ -33,70 +44,65 @@ int main()
       m2.setElement(1, 0, 10);
       m2.setElement(1, 1, 60);
       m2.setElement(1, 2, 90);
+
+      std::cout << "\nMatrix m1 is ";
+      m1.print();
+
+      std::cout << "\nMatrix m2 is ";
+      m2.print();
+
+      m3 = m1 + m2;
+      std::cout << "\nMatrix m1 is now m1+m2 is ";
+      m3.print();
+
+      if (m1 != m2)
+         std::cout << "\nMatrices are different!";
+      else
+         std::cout << "\nMatrices are the same!";
+
+      std::cout << "\nMatrix m7 is initialized with same value in all cells\n";
+      m7.print();
+
+      std::cout << "\nMatrix zeros is printed through marked print method\n";
+      zeros.print();
+      zeros.print();
+      zeros.print();
+
+      cout << m7;
+
+      m8 = m1 - m2;
+      std::cout << "\nMatrix printed is subtraction of m1-m2\n";
+      m8.print();
+
+      m8 += m8;
+      std::cout << "\nMatrix printed is operator += to do of m8+=m8\n";
+      m8.print();
+
+      for (int i = 0; i < MAX_CELLS; ++i)
+         cout << "Cell[" << i << "]=" << m8[i] << "\n";
+
+      cout << "Zeros value index = " << zrs[0] << '\n';
+
+      cout << "Matrix M1 index (1,2) = " << m1(1,2) << '\n';
+      cout << "Matrix ZEROS index (1,2) = " << zeros(1,2) << '\n';
+
+      cout << "Matrix m8 before assignment from m1\n";
+      m8.print();
+      m8 = m1;
+      cout << "Matrix m8 after assignment from m1\n";
+      m8.print();
+
+      outfile.open("test.txt");
+      outfile << m1;
+      outfile.close();
+
+      cout << "Name of derived class : " << m8.nameOf() << endl;
+      m8.trace();
    }
    catch(int v)   // should print 7 (worked in one of past commits)
    {
-      std::cerr << "Error=" << v <<  '\n';
+      std::cerr << "Error=" << v << " at line " << __LINE__ <<  std::endl;
    }
-
-
-	std::cout << "\nMatrix m1 is ";
-	m1.print();
-
-	std::cout << "\nMatrix m2 is ";
-	m2.print();
-
-   m3 = m1 + m2;
-	std::cout << "\nMatrix m1 is now m1+m2 is ";
-	m3.print();
-
-   if (m1 != m2)
-      std::cout << "\nMatrices are different!";
-   else
-      std::cout << "\nMatrices are the same!";
-
-   Matrix<float> m6;
-   Matrix<double> m7(55.1);
-	std::cout << "\nMatrix m7 is initialized with same value in all cells\n";
-   m7.print();
-
-   const Matrix<int> zeros(0);
-   std::cout << "\nMatrix zeros is printed through marked print method\n";
-   zeros.print();
-   zeros.print();
-   zeros.print();
-
-   cout << m7;
-
-   Matrix<int> m8 = m1 - m2;
-   std::cout << "\nMatrix printed is subtraction of m1-m2\n";
-   m8.print();
-
-   m8 += m8;
-   std::cout << "\nMatrix printed is operator += to do of m8+=m8\n";
-   m8.print();
-
-   for (int i = 0; i < MAX_CELLS; ++i)
-      cout << "Cell[" << i << "]=" << m8[i] << "\n";
-
-   const Matrix<float> zrs{0};
-   cout << "Zeros value index = " << zrs[0] << '\n';
-
-   cout << "Matrix M1 index (1,2) = " << m1(1,2) << '\n';
-   cout << "Matrix ZEROS index (1,2) = " << zeros(1,2) << '\n';
-
-   cout << "Matrix m8 before assignment from m1\n";
-   m8.print();
-   m8 = m1;
-   cout << "Matrix m8 after assignment from m1\n";
-   m8.print();
-
-   outfile.open("test.txt");
-   outfile << m1;
-   outfile.close();
-
-   cout << "Name of derived class : " << m8.nameOf() << endl;
-   m8.trace();
 
    try
    {
