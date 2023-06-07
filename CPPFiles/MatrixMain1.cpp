@@ -16,17 +16,26 @@ int main()
 
    m1(0, 0) = 10;
    m1(0, 1) = 20;
-	m1.setElement(0, 2, 30);
-	m1.setElement(1, 0, 40);
-	m1.setElement(1, 1, 50);
-	m1.setElement(1, 2, 60);
+   
+   try
+   {
+      m1.setElement(0, 2, 30);
+      m1.setElement(1, 0, 40);
+      m1.setElement(1, 1, 50);
+      m1.setElement(1, 2, 60);
 
-	m2.setElement(0, 0, 30);
-	m2.setElement(0, 1, 50);
-	m2.setElement(0, 2, 70);
-	m2.setElement(1, 0, 10);
-	m2.setElement(1, 1, 60);
-   m2.setElement(1, 2, 90);
+      m2.setElement(0, 0, 30);
+      m2.setElement(0, 1, 50);
+      m2.setElement(0, 2, 70);
+      m2.setElement(1, 0, 10);
+      m2.setElement(1, 1, 60);
+      m2.setElement(1, 2, 90);
+   }
+   catch(int v)   // should print 7
+   {
+      std::cerr << "Error=" << v <<  '\n';
+   }
+
 
 	std::cout << "\nMatrix m1 is ";
 	m1.print();
@@ -85,6 +94,15 @@ int main()
 
    cout << "Name of derived class : " << m8.nameOf() << endl;
    m8.trace();
+
+   try
+   {
+      m1.setElement(0, 8, 30);
+   }
+   catch(const MatrixBoundException& e)
+   {
+      std::cerr << e.what() << '\n';
+   }
 
 	return 0;
 }

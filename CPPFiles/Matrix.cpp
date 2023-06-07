@@ -6,7 +6,7 @@ Matrix::Matrix()
 {
    printed = 0;
    empty(); 
-   cout << "No arg constructor!" << "// ObjCount=" << ++Matrix::objcount << "\n"; 
+   //cout << "No arg constructor!" << "// ObjCount=" << ++Matrix::objcount << "\n"; 
 } 
 
 Matrix::~Matrix() { /* cout << "Destroying" << "// ObjCount=" << --Matrix::objcount << endl; */ }
@@ -24,7 +24,7 @@ Matrix::Matrix(const Matrix& m)
 {
    cout << "Creating by a copy constructor" << "// ObjCount=" << ++objcount << endl;
    printed = 0;
-   mtx = m.mtx; 
+   mtx = m.mtx;
 }
 
 void Matrix::empty()
@@ -51,6 +51,18 @@ void Matrix::print(void) const
 
 void Matrix::setElement(int row, int col, int value)
 {
+   if (row < 0)
+      throw 6;
+   
+   if (col < 0)
+      throw 7;
+
+   if (row > MAX_ROWS || col > MAX_COLS)
+   {
+      MatrixBoundException me;
+      throw me;
+   }
+
    mtx.at(row).at(col) = value;
 }
 
@@ -84,7 +96,7 @@ Matrix Matrix::operator-(const Matrix& rhs)
 }
 
 
-bool Matrix::operator==(const Matrix& rhs) const
+bool Matrix::operator==(const Matrix& rhs) const noexcept
 {
    for (int i = 0; i < MAX_ROWS; i++) {
       for (int j = 0; j < MAX_COLS; j++) {
@@ -97,7 +109,7 @@ bool Matrix::operator==(const Matrix& rhs) const
    return true;
 }
 
-bool Matrix::operator!=(const Matrix& rhs) const
+bool Matrix::operator!=(const Matrix& rhs) const noexcept
 {
    return !this->operator==(rhs);
 }
@@ -128,10 +140,8 @@ Matrix& Matrix::operator+=(const Matrix& rhs)
     return *this;
 }
 
-int& Matrix::operator[](int cell)
+int& Matrix::operator[](int cell) noexcept
 {
-   assert(cell < MAX_CELLS);
-
    int curr_row = cell / (MAX_ROWS + 1);
    int curr_off = cell % (MAX_ROWS + 1);
    int* pr = &mtx[curr_row][0];
@@ -139,7 +149,7 @@ int& Matrix::operator[](int cell)
    return *(pr + curr_off);
 }
 
-int Matrix::operator[](int cell) const
+int Matrix::operator[](int cell) const noexcept
 {
    assert(cell < MAX_CELLS);
 
@@ -168,7 +178,7 @@ int Matrix::operator()(int row, int col) const
    return this->mtx[row][col];
 }
 
-Matrix& Matrix::operator=(const Matrix& rhs)
+Matrix& Matrix::operator=(const Matrix& rhs) noexcept
 {
    for (int i = 0; i < MAX_ROWS; i++) {
       for (int j = 0; j < MAX_COLS; j++) {

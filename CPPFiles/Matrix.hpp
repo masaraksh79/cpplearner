@@ -17,6 +17,15 @@ public:
    virtual string nameOf() = 0;
 };
 
+class MatrixBoundException: public exception
+{
+public:
+   virtual const char* what() const noexcept
+   {
+      return "Row or Column are larger than allowed!";
+   }
+};
+
 class Matrix : public Object
 {
 public:
@@ -36,14 +45,14 @@ public:
    Matrix addMatrix(const Matrix othermatrix) const;
    Matrix operator+(const Matrix& rhs);
    Matrix operator-(const Matrix& rhs);
-   bool operator==(const Matrix& rhs) const;
-   bool operator!=(const Matrix& rhs) const;
+   bool operator==(const Matrix& rhs) const noexcept;
+   bool operator!=(const Matrix& rhs) const noexcept;
    Matrix& operator+=(const Matrix& rhs);
-   int& operator[](int cell);
-   int operator[](int cell) const;
+   int& operator[](int cell) noexcept;
+   int operator[](int cell) const noexcept;
    int& operator()(int row, int col);
    int operator()(int row, int col) const;
-   Matrix& operator=(const Matrix& rhs);
+   Matrix& operator=(const Matrix& rhs) noexcept;
    //The ugly
    static int objcount;
    friend ostream& operator<<(ostream& os, const Matrix& m);
