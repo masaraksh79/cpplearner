@@ -5,7 +5,7 @@
 #include <iostream>
 
 template <typename T>
-T sign(T val)
+int sign(T val)
 {
    return val >= 0 ? 1 : -1;
 }
