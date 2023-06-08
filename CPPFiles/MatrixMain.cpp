@@ -11,19 +11,20 @@
 #define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
 using namespace utils;
+using matrix = Matrix<int,MAX_ROWS,MAX_COLS>;
 
 int main()
 {
-	Matrix<int,MAX_ROWS,MAX_COLS> m1;
-   Matrix<int,MAX_ROWS,MAX_COLS> m2; 
-   Matrix<int,MAX_ROWS,MAX_COLS> m3;
+	matrix m1;
+   matrix m2; 
+   matrix m3;
 
-   Matrix<int,MAX_ROWS,MAX_COLS> m6;
-   Matrix<int,MAX_ROWS,MAX_COLS> m7(55);
-   Matrix<int,MAX_ROWS,MAX_COLS> m8;
+   matrix m6;
+   matrix m7(55);
+   matrix m8;
 
-   const Matrix<int,MAX_ROWS,MAX_COLS> zeros(0);
-   const Matrix<int,MAX_ROWS,MAX_COLS> zrs{0};
+   const matrix zeros(0);
+   const matrix zrs{0};
 
    ofstream outfile;
 
@@ -46,6 +47,8 @@ int main()
       m2.setElement(1, 0, 10);
       m2.setElement(1, 1, 60);
       m2.setElement(1, 2, 90);
+
+      cout << "Default compiler ver " << __cplusplus << endl;
 
       std::cout << "\nMatrix m1 is ";
       m1.print();
@@ -114,6 +117,16 @@ int main()
    {
       std::cerr << e.what() << '\n';
    }
+
+   // modern c++
+#ifndef __cpp_raw_strings
+   #warning "not supporting RAW strings"
+#else
+   cout << R"(supporting \\\\raw\\\\ strings)" << endl; 
+#endif
+
+   matrix m10{{1,2,3},{4,5,6}};
+   m10.print();
 
 	return 0;
 }

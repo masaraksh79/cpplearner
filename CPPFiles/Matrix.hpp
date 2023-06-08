@@ -4,6 +4,7 @@
 #include <iostream>
 #include <array>
 #include <cassert>
+#include <initializer_list>
 
 using namespace std;
 
@@ -53,7 +54,9 @@ public:
    //Default constructor
    Matrix<T,R,C>();
    //Converting constructor (should be explicit)
-   Matrix<T,R<C>(const T value);
+   Matrix<T,R,C>(const T value);
+   //Initializer constructor
+   Matrix<T,R,C>(initializer_list<initializer_list<T>> list);
    //Copy constructor
    Matrix<T,R,C>(const Matrix& m);
    //Destructor
@@ -78,6 +81,7 @@ public:
    //Overriding methods of MatrixParent
    std::string nameOf() { return "Matrix"; }
    void trace() { cout << "Here is " << nameOf() << endl; }
+   static_assert(std::is_fundamental_v<T>, "T must be a fundamental type");
 private:
    array<array <T,C>,R> mtx;
    mutable int printed;
@@ -100,9 +104,9 @@ Matrix<T,R,C>::Matrix(const T value)
 {
    cout << "Creating " << value << "// ObjCount=" << ++objcount << "\n";
    printed = 0;
-   for (int i = 0; i < R; i++)
-      for (int j = 0; j < C; j++)
-         mtx.at(i).at(j) = value;
+   for (auto& row : mtx) 
+      for (auto &data : row) 
+         data = value;
 }
 
 template <class T, int R, int C>
@@ -114,23 +118,42 @@ Matrix<T,R,C>::Matrix(const Matrix<T,R,C>& m)
 }
 
 template <class T, int R, int C>
+Matrix<T,R,C>::Matrix(initializer_list<initializer_list<T>> list)
+{
+   int r = 0, c = 0;
+   cout << "Matrix list initializer constructor" << endl;
+
+   for (const auto& elm: list)
+   {
+      c = 0;
+      for (auto item: elm)
+      {
+         this->setElement(r, c, item);
+         c++;
+      }
+      r++;
+   }
+}
+
+template <class T, int R, int C>
 void Matrix<T,R,C>::empty()
 {
-   for (int i = 0; i < R; i++)
-      for (int j = 0; j < C; j++)
-         mtx.at(i).at(j) = static_cast<T>(0);
+   for (auto& row : mtx) 
+      for (auto &data : row) 
+         data = 0;
 }
 
 template <class T, int R, int C>
 void Matrix<T,R,C>::print(void) const
 {
    cout << endl;
-   
-   for (int i = 0; i < R; i++)
+
+   for (auto& row : mtx) 
    {
-      for (int j = 0; j < C; j++)
-         cout << mtx.at(i).at(j) << " ";
-   
+      for (auto &data : row) 
+      {
+         cout << data << " ";
+      }
       cout << endl; //not just prints eol but flushes
    }
 
