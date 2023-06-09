@@ -28,8 +28,8 @@ int main()
 
    ofstream outfile;
 
-	m1.empty();
-	m2.empty();
+	m1.clear();
+	m2.clear();
 
    m1(0, 0) = 10;
    m1(0, 1) = 20;
@@ -141,6 +141,9 @@ int main()
    cout << "Chaining lambdas..." << endl;
    m11.apply([&](int x){ return x + 1; }).apply([&](int x){ return x + x; });
    m11.print();
+
+   matrix m12(1'000'000);
+   m12.print();   
 
 	return 0;
 }

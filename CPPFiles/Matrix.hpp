@@ -62,7 +62,9 @@ public:
    //Destructor
    ~Matrix<T,R,C>();
    //User methods
+   [[deprecated]]
    void empty();
+   void clear();
    void print(void) const;
    void setElement(int row, int col, T value = 0);
    const T getElement(int row, int col) const;
@@ -101,7 +103,7 @@ template <class T, int R, int C>
 Matrix<T,R,C>::Matrix()
 {
    printed = 0;
-   empty(); 
+   clear(); 
 } 
 
 template <class T, int R, int C>
@@ -145,6 +147,14 @@ Matrix<T,R,C>::Matrix(initializer_list<initializer_list<T>> list)
 
 template <class T, int R, int C>
 void Matrix<T,R,C>::empty()
+{
+   for (auto& row : mtx) 
+      for (auto &data : row) 
+         data = 0;
+}
+
+template <class T, int R, int C>
+void Matrix<T,R,C>::clear()
 {
    for (auto& row : mtx) 
       for (auto &data : row) 
