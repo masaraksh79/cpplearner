@@ -82,6 +82,14 @@ public:
    std::string nameOf() { return "Matrix"; }
    void trace() { cout << "Here is " << nameOf() << endl; }
    static_assert(std::is_fundamental_v<T>, "T must be a fundamental type");
+   //apply func
+   Matrix<T,R,C>& apply(function<T (T)> f) {
+      for (auto& row : mtx) 
+         for (auto &data : row) 
+            data = f(data);
+      
+      return *this;
+   }
 private:
    array<array <T,C>,R> mtx;
    mutable int printed;

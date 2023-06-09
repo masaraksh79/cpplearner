@@ -122,11 +122,25 @@ int main()
 #ifndef __cpp_raw_strings
    #warning "not supporting RAW strings"
 #else
-   cout << R"(supporting \\\\raw\\\\ strings)" << endl; 
+   auto myRstr = R"(supporting \\\\raw\\\\ strings)";
+   cout << myRstr << endl; 
 #endif
 
    matrix m10{{1,2,3},{4,5,6}};
    m10.print();
+
+   cout << "Doubling the matrix by lambda double_it" << endl;
+   m10.apply([&](int x){ return x + x; });
+   m10.print();
+
+   cout << "Tripling the matrix by lambda double_it" << endl;
+   m10.apply([&](int x){ return x + x + x; });
+   m10.print();
+
+   matrix m11{{1,1,1},{2,2,2}};
+   cout << "Chaining lambdas..." << endl;
+   m11.apply([&](int x){ return x + 1; }).apply([&](int x){ return x + x; });
+   m11.print();
 
 	return 0;
 }
