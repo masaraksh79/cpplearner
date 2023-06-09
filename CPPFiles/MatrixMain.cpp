@@ -4,6 +4,7 @@
  */
 #include <cassert>
 #include <fstream>
+#include <filesystem>
 #include "Matrix.hpp"
 
 #define MAX_ROWS 2
@@ -11,6 +12,7 @@
 #define MAX_CELLS (MAX_ROWS*MAX_COLS)
 
 using namespace utils;
+namespace fss = std::filesystem;
 using matrix = Matrix<int,MAX_ROWS,MAX_COLS>;
 
 int main()
@@ -142,8 +144,15 @@ int main()
    m11.apply([&](int x){ return x + 1; }).apply([&](int x){ return x + x; });
    m11.print();
 
+   //C++14 bits
    matrix m12(1'000'000);
    m12.print();   
+
+   //C++17 bits
+   auto path = fss::current_path();
+   std::cout << path << std::endl;
+   fss::path pathToShow("MatrixMain.cpp");
+   std::cout <<  fss::exists(pathToShow) << std::endl;
 
 	return 0;
 }
